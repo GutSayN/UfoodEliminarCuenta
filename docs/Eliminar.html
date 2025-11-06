@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminación de Cuenta - UFood</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f0fdf4;
+            min-height: 100vh;
+        }
+
+        /* Header con degradado verde igual que tu app */
+        .header {
+            background: linear-gradient(135deg, #065f46 0%, #059669 100%);
+            padding: 60px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Círculos decorativos como en tu app */
+        .circle1 {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(5, 150, 105, 0.3);
+            top: -40px;
+            right: -40px;
+        }
+
+        .circle2 {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.2);
+            top: 80px;
+            left: -20px;
+        }
+
+        .circle3 {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(52, 211, 153, 0.25);
+            bottom: 15px;
+            right: 50px;
+        }
+
+        /* Logo container */
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-wrapper {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 24px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            padding: 12px;
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #d1fae5;
+            font-weight: 500;
+        }
+
+        /* Tarjeta principal estilo tu app */
+        .container {
+            max-width: 900px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .card {
+            background: white;
+            border-radius: 30px;
+            padding: 32px 24px;
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #f0fdf4;
+        }
+
+        .card-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #065f46;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        /* Caja de advertencia */
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #f59e0b;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .warning-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .warning-content h3 {
+            color: #856404;
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .warning-content p {
+            color: #6b5a00;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Sección con título verde */
+        .section {
+            margin: 32px 0;
+        }
+
+        .section-title {
+            color: #065f46;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            padding-left: 12px;
+            border-left: 4px solid #059669;
+        }
+
+        /* Timeline del proceso */
+        .timeline {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 24px;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-number {
+            width: 40px;
+            height: 40px;
+            background: #059669;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            color: #065f46;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .timeline-text {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Caja de información */
+        .info-box {
+            background: #f0fdf4;
+            border: 2px solid #d1fae5;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            margin-bottom: 12px;
+            color: #065f46;
+            font-weight: 500;
+        }
+
+        .info-box ul {
+            margin: 0;
+            padding-left: 24px;
+        }
+
+        .info-box li {
+            color: #059669;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        /* Pasos del proceso */
+        .steps {
+            margin: 24px 0;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            border-color: #059669;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.1);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: #059669;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .step-title {
+            color: #065f46;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .step-content {
+            padding-left: 44px;
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .step-content ul {
+            margin-top: 8px;
+            padding-left: 20px;
+        }
+
+        .step-content li {
+            margin-bottom: 6px;
+        }
+
+        .step-content strong {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        /* Botón de correo verde estilo tu app */
+        .email-button {
+            display: inline-block;
+            background: #059669;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(5, 150, 105, 0.3);
+            text-align: center;
+        }
+
+        .email-button:hover {
+            background: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.4);
+        }
+
+        .email-button-container {
+            text-align: center;
+            margin: 24px 0;
+        }
+
+        /* Sección de contacto verde */
+        .contact-section {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            padding: 32px 24px;
+            border-radius: 24px;
+            text-align: center;
+            margin: 32px 0;
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.3);
+        }
+
+        .contact-section h2 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .contact-section p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .contact-section a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid white;
+            padding-bottom: 2px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .developers {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 12px;
+        }
+
+        /* Decoración inferior */
+        .bottom-decoration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 32px 0 24px;
+        }
+
+        .bottom-text {
+            color: #059669;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .leaf-icon {
+            color: #d1fae5;
+            font-size: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #059669;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 16px 60px;
+            }
+
+            .logo-text {
+                font-size: 28px;
+            }
+
+            .card {
+                padding: 24px 20px;
+            }
+
+            .card-title {
+                font-size: 22px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .timeline-number {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header con logo igual que tu app -->
+    <div class="header">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        
+        <div class="logo-container">
+            <div class="logo-wrapper">
+                <img src="/icon.png" alt="UFood Logo">
+            </div>
+            <div class="logo-text">UFOOD</div>
+            <div class="subtitle">Tu comida, tu estilo</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Tarjeta principal -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Eliminación de Cuenta 🗑️</div>
+                <div class="card-subtitle">Gestiona tus datos y privacidad</div>
+            </div>
+
+            <!-- Advertencia importante -->
+            <div class="warning-box">
+                <span class="warning-icon">⚠️</span>
+                <div class="warning-content">
+                    <h3>Importante: Esto es una acción irreversible</h3>
+                    <p>Una vez completado el proceso de eliminación, <strong>no podrás recuperar tu cuenta ni tus datos</strong>. Por favor, lee cuidadosamente toda la información antes de proceder.</p>
+                </div>
+            </div>
+
+            <!-- Proceso de eliminación -->
+            <div class="section">
+                <h2 class="section-title">¿Qué sucede cuando eliminas tu cuenta?</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Cuando solicitas la eliminación de tu cuenta de UFood, se inicia un proceso de desactivación y eliminación permanente que garantiza la protección de tu privacidad:</p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-number">1</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Desactivación Inmediata</div>
+                            <div class="timeline-text">Tu cuenta pasa a estado inactivo inmediatamente. Perderás acceso a la aplicación y tus productos o publicaciones dejarán de ser visibles.</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-number">2</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Período de Retención (30 días)</div>
+                            <div class="timeline-text">Tus datos permanecen almacenados por 30 días. Durante este tiempo puedes solicitar la reactivación de tu cuenta contactando a nuestro equipo.</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-number">3</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Eliminación Permanente Automática</div>
+                            <div class="timeline-text">Después de 30 días, un proceso automatizado elimina permanentemente todos tus datos. Esta acción es <strong>irreversible</strong>.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Datos que se eliminan -->
+            <div class="section">
+                <h2 class="section-title">Datos que se eliminarán permanentemente</h2>
+                <div class="info-box">
+                    <p>Después del período de 30 días, se eliminarán de forma permanente:</p>
+                    <ul>
+                        <li>✓ Todos tus datos personales (nombre, correo, teléfono)</li>
+                        <li>✓ Historial de búsquedas y compras</li>
+                        <li>✓ Productos publicados (si eres vendedor)</li>
+                        <li>✓ Mensajes y conversaciones</li>
+                        <li>✓ Configuraciones y preferencias</li>
+                        <li>✓ Imágenes y contenido multimedia</li>
+                        <li>✓ Cualquier otro dato asociado a tu cuenta</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Datos que se conservan -->
+            <div class="section">
+                <h2 class="section-title">Datos que se conservan</h2>
+                <div class="info-box">
+                    <p>Por obligaciones legales, fiscales y de seguridad, conservamos de forma limitada y segura:</p>
+                    <ul>
+                        <li>• Registros de transacciones fiscales (según legislación vigente, generalmente 5 años)</li>
+                        <li>• Logs de actividad necesarios para investigaciones legales en curso</li>
+                        <li>• Datos agregados y anónimos para estadísticas (sin información que te identifique)</li>
+                        <li>• Información requerida para resolver disputas activas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Pasos para solicitar eliminación -->
+            <div class="section">
+                <h2 class="section-title">Cómo solicitar la eliminación de tu cuenta</h2>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <span class="step-number">1</span>
+                            <span class="step-title">Envía un correo electrónico</span>
+                        </div>
+                        <div class="step-content">
+                            <p>Dirígete a: <strong>ufoodmabn@gmail.com</strong></p>
+                           
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <span class="step-number">2</span>
+                            <span class="step-title">Asunto del correo</span>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>"Solicitud de Eliminación de Cuenta - UFood"</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <span class="step-number">3</span>
+                            <span class="step-title">Información a incluir</span>
+                        </div>
+                        <div class="step-content">
+                            <ul>
+                                <li><strong>Nombre completo:</strong> El que usaste al registrarte</li>
+                                <li><strong>Correo electrónico registrado:</strong> La dirección asociada a tu cuenta</li>
+                                <li><strong>Motivo de eliminación:</strong> (Opcional, nos ayuda a mejorar)</li>
+                                <li><strong>Confirmación:</strong> Indica que comprendes que la eliminación es irreversible después de 30 días</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <span class="step-number">4</span>
+                            <span class="step-title">Espera la confirmación</span>
+                        </div>
+                        <div class="step-content">
+                            <p>Recibirás un correo de confirmación en un plazo máximo de <strong>20 días hábiles</strong>. Tu cuenta será desactivada inmediatamente y comenzará el período de retención de 30 días.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cambio de opinión -->
+            <div class="section">
+                <h2 class="section-title">¿Cambiaste de opinión?</h2>
+                <div class="info-box">
+                    <p>Si solicitaste la eliminación pero deseas recuperar tu cuenta, tienes <strong>30 días</strong> para contactarnos a:</p>
+                    <p style="text-align: center; margin: 16px 0; font-size: 16px;">
+                        <strong>ufoodmabn@gmail.com</strong><br>
+                        <span style="color: #6b7280; font-size: 14px;">Asunto: "Reactivación de Cuenta - UFood"</span>
+                    </p>
+                    <p><strong>Importante:</strong> Después de 30 días, la eliminación es automática y permanente. No podremos recuperar tus datos.</p>
+                </div>
+            </div>
+
+            <!-- Alternativas -->
+            <div class="section">
+                <h2 class="section-title">Alternativas a la eliminación</h2>
+                <p style="color: #6b7280; margin-bottom: 12px;">Si tienes dudas sobre eliminar tu cuenta permanentemente, considera estas opciones:</p>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Eliminar historial:</strong> Puedes borrar tu historial de búsquedas y productos vistos sin eliminar tu cuenta</li>
+                        <li><strong>Ajustar privacidad:</strong> Modifica la configuración de privacidad en la app</li>
+                        <li><strong>Desactivar notificaciones:</strong> Controla qué notificaciones recibes</li>
+                        <li><strong>Tomar un descanso:</strong> Simplemente cierra sesión y no uses la app temporalmente</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Marco legal -->
+            <div class="section">
+                <h2 class="section-title">Marco Legal</h2>
+                <p style="color: #6b7280;">Este proceso de eliminación de datos cumple con:</p>
+                <div class="info-box">
+                    <ul>
+                        <li>Ley Federal de Protección de Datos Personales en Posesión de Particulares (México)</li>
+                        <li>Reglamentos del INAI (Instituto Nacional de Transparencia)</li>
+                        <li>Requisitos de Google Play Store sobre gestión de datos de usuario</li>
+                        <li>Mejores prácticas internacionales de privacidad</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de contacto verde -->
+        <div class="contact-section">
+            <h2>¿Necesitas ayuda? 💬</h2>
+            <p>Si tienes preguntas sobre el proceso de eliminación de cuenta o sobre el manejo de tus datos personales, estamos aquí para ayudarte:</p>
+            <div class="contact-info">
+                <p><strong>Correo:</strong> <a>ufoodmabn@gmail.com</a></p>
+                <p><strong>Tiempo de respuesta:</strong> Máximo 20 días hábiles</p>
+                <div class="developers">
+                    <strong>Desarrolladores:</strong><br>
+                    Juan Mateo Hernández De Luna, Norma Sayuri Gutiérrez Cruz,<br>
+                    Brian Emmanuel Flores Hernández, Aaron Yosef Chávez Martínez
+                </div>
+            </div>
+        </div>
+
+        <!-- Decoración inferior -->
+        <div class="bottom-decoration">
+            <span class="leaf-icon">🌿</span>
+            <span class="bottom-text">Únete a la familia UFOOD</span>
+            <span class="leaf-icon">🌿</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 UFood. Todos los derechos reservados.</p>
+        <p style="margin-top: 8px;">
+            <a href="https://gutsayn.github.io/ufood-legal/legal/privacy.html">Política de Privacidad</a> | 
+            <a href="https://gutsayn.github.io/ufood-legal/legal/terms.html">Términos y Condiciones</a>
+        </p>
+    </div>
+</body>
+</html>
